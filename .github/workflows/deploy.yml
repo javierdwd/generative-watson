@@ -42,12 +42,10 @@ jobs:
           chmod 600 "$key_path" "$known_hosts_path"
 
           remote_command="cd -- $(printf '%q' "$EC2_APP_PATH") && git pull --ff-only && npm ci && npm run build:backend && pm2 startOrRestart ecosystem.config.cjs --only 'ai-detective-backend' --update-env"
-          # EC2_HOST may be an IP; use the DNS name in EC2_KNOWN_HOSTS for host-key verification.
           ssh \
             -i "$key_path" \
             -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=yes \
-            -o HostKeyAlias=generative-watson.52-73-173-173.sslip.io \
             -o UserKnownHostsFile="$known_hosts_path" \
             "$EC2_SSH_USER@$EC2_HOST" \
             "$remote_command"
