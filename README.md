@@ -76,6 +76,32 @@ npm run build:backend
 npm run build:frontend
 ```
 
+## GitHub Actions deployment
+
+Pull requests run only `npm run test:backend` and `npm run test:integration`.
+Pushing to `main` deploys the backend to the EC2 instance over SSH: the workflow
+pulls the latest commit, installs dependencies, builds the backend, and restarts
+its PM2 process. The PM2 configuration is
+[`ecosystem.config.cjs`](ecosystem.config.cjs). Deploy the Next.js frontend
+through its hosting provider, such as Vercel, which can build it from the Git
+repository. The EC2 deployment uses no containers.
+
+Configure these repository variables in GitHub:
+
+- `EC2_HOST` — EC2 public DNS name or IP address.
+- `EC2_SSH_USER` — Linux account used for deployment.
+- `EC2_APP_PATH` — absolute path to the repository checkout on EC2.
+- `EC2_KNOWN_HOSTS` — trusted SSH host key line for the EC2 host, obtained and
+  verified out of band.
+
+Add `EC2_SSH_PRIVATE_KEY` as a repository secret. Its public key must be in the
+deployment account's `~/.ssh/authorized_keys`. The EC2 checkout must have
+`main` as its checked-out branch and an `origin` remote. Install Node.js 22 or
+later and PM2 on the instance, and configure the production environment files
+there before the first deploy. Keep the backend keys in `backend/.env`. Set
+`BACKEND_URL` in the frontend hosting provider's environment to the public
+backend API address.
+
 ## Layout
 
 - `frontend/` — Next.js interface, CopilotKit provider, headless agent hooks,

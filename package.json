@@ -1,0 +1,16 @@
+{
+  "name": "ai-detective-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace ai-detective-backend-ts",
+    "dev:frontend": "npm run dev --workspace ai-detective-frontend",
+    "build:backend": "npm run build --workspace ai-detective-backend-ts",
+    "build:frontend": "npm run build --workspace ai-detective-frontend",
+    "test:backend": "npm run test --workspace ai-detective-backend-ts",
+    "test:integration": "node --import tsx --test frontend/src/lib/copilot-runtime.test.mts",
+    "typecheck:backend": "npm run typecheck --workspace ai-detective-backend-ts",
+    "typecheck:frontend": "npm run typecheck --workspace ai-detective-frontend"
+  }
+}
