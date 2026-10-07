@@ -88,11 +88,11 @@ repository. The EC2 deployment uses no containers.
 
 Configure these repository variables in GitHub:
 
-- `EC2_HOST` — EC2 public DNS name or IP address.
+- `EC2_HOST` — EC2 public DNS name or IP address used for the SSH connection.
 - `EC2_SSH_USER` — Linux account used for deployment.
 - `EC2_APP_PATH` — absolute path to the repository checkout on EC2.
-- `EC2_KNOWN_HOSTS` — trusted SSH host key line for the EC2 host, obtained and
-  verified out of band.
+- `EC2_KNOWN_HOSTS` — trusted SSH host key line for
+  `generative-watson.52-73-173-173.sslip.io`, obtained and verified out of band.
 
 Add `EC2_SSH_PRIVATE_KEY` as a repository secret. Its public key must be in the
 deployment account's `~/.ssh/authorized_keys`. The EC2 checkout must have
